@@ -13,7 +13,7 @@ url = 'https://nlp-brat-prod01.fhcrc.org/hutchner/ner_neg/crf'
 data = {
         "1234":"the patient experienced no chest pressure or pain or dyspnea, or pain, or dyspnea"
     }
-headers = {"Content-Type: application/json"}
+# headers = {"Content-Type: application/json"}
 response = requests.get(url, json=data,auth=HTTPBasicAuth("wlane","python"))
 
 p_response = json.loads(response.text)

@@ -1,4 +1,6 @@
 import unittest
+
+from Preprocessing.HutchNER.NERData import NERData
 from Preprocessing.MetaMapLite.MetaMap import MetaMap
 
 
@@ -52,6 +54,27 @@ class MetaMapClass(unittest.TestCase):
         self.assertEqual(response[2]['cui'], 'C0205107')
         self.assertEqual(response[3]['cui'], 'C0040184')
         self.assertEqual(response[4]['cui'], 'C0205090')
+
+
+class NERDataClass(unittest.TestCase):
+    def setUp(self):
+        self.data = {
+        "1234":"the patient experienced no chest pressure or pain or dyspnea, or pain, or dyspnea"
+        }
+        self.hutchner = NERData()
+
+    def tearDown(self):
+        self.data = None
+        self.hutchner = None
+
+    def test_make_get_request(self):
+        response = self.hutchner.make_get_request(self.data)
+        self.assertEqual(type(response), type(dict()))
+        self.assertEqual(len(response.keys()), 1)
+        self.assertEqual(len(response['1234']), 2)
+        assert('NER_labels' in response['1234'])
+        assert('text' in response['1234'])
+
 
 
 if __name__ == '__main__':
