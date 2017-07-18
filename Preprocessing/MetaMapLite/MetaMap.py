@@ -24,7 +24,7 @@ class MetaMap:
                 result_dict[concept] = self._build_umls_concepts(str(output, 'utf-8'))
         return result_dict
 
-    def _build_umls_concepts(self, output):
+    def _build_umls_concepts(self, mm_output):
         '''
         Given raw input from the subprocess call to metamap, return a list of concept dictionaries:
         list[{'text':_, 'sem_class':_, 'start':_, 'end':_ 'cui':_},
@@ -34,12 +34,18 @@ class MetaMap:
         :param output: text output from metamap subcall
         :return: list of umls concept dictionaries
         '''
+        #account for edge case where mm output is empty string
+        if mm_output == "":
+            return list()
+
         concept_dict_list = list()
-        individual_concepts = output.split('\n')
+        individual_concepts = mm_output.split('\n')
         for concept in individual_concepts:
             if concept != "":
                 concept_dict=dict()
                 items = concept.split("|")
+                if len(items) <= 1: # accounts for garbage input not in the correct format
+                    return list()
                 concept_dict['desc'] = items[2]
                 concept_dict['sem_class'] = items[4].lstrip('[').rstrip(']')
                 concept_dict['start'] = int(items[7].split(":")[0])
