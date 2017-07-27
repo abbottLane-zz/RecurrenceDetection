@@ -8,7 +8,8 @@ class MetaMapClass(unittest.TestCase):
     def setUp(self):
         # Instantiate metamap obj with path to dir containing metamap install
         self.mm = MetaMap('/home/wlane/Applications/public_mm_lite/')
-        self.concepts = ['right leg mass',
+        self.concepts = ['LH',
+                         'right leg mass',
                          'right proximal tibial mass',
                          'achy pain',
                          'bumps'
