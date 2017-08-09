@@ -1,6 +1,5 @@
 import os
-import subprocess
-from subprocess import Popen, PIPE, STDOUT
+from subprocess import Popen, PIPE
 
 
 class MetaMap:
